@@ -56,6 +56,10 @@
   when: "'svc' in hostvars[item].ifaces"
   with_items: groups.hosts
 
+- name: Add docker registry to hosts
+  tags: hosts
+  host: hostname=registry.docker ip=10.208.163.157 state=present  
+
 - name: Configure network interfaces
   tags: networks
   template: src=ifcfg.j2 dest=/etc/sysconfig/network-scripts/ifcfg-{{item.iface}}

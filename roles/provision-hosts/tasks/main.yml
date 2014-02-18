@@ -38,20 +38,24 @@
   tags: packages
   command: easy_install docker-py
 
-- name: Pull Ubuntu image
+- name: Pull images
   tags: docker
-  command: docker pull ubuntu:12.04
+  command: docker pull {{item}}
+  with_items:
+    - registry.docker:5000/admin
+    - registry.docker:5000/mysql
+    - registry.docker:5000/keystone
 
-- name: Clone dockerfiles
-  tags: docker
-  git: repo=https://github.com/Apsu/dockerlab-files dest={{ansible_env.HOME}}/dockerfiles update=yes
-
-- name: List dockerfiles
-  tags: docker
-  shell: ls -d1 {{ansible_env.HOME}}/dockerfiles/*
-  register: output
-
-- name: Build docker images
-  tags: docker
-  docker_image: path={{item}} name="dockerlab/{{item|basename}}" state=build
-  with_items: output.stdout_lines
+#- name: Clone dockerfiles
+#  tags: docker
+#  git: repo=https://github.com/Apsu/dockerlab-files dest={{ansible_env.HOME}}/dockerfiles update=yes
+# 
+#- name: List dockerfiles
+#  tags: docker
+#  shell: ls -d1 {{ansible_env.HOME}}/dockerfiles/*
+#  register: output
+# 
+#- name: Build docker images
+#  tags: docker
+#  docker_image: path={{item}} name="dockerlab/{{item|basename}}" state=build
+#  with_items: output.stdout_lines
