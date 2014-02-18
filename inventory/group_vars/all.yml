@@ -1,7 +1,4 @@
 ---
-# Replace with python 2.x more explicitly
-ansible_python_interpreter: /usr/bin/python2
-
 # Root ahoy!
 ansible_ssh_user: root
 
@@ -21,6 +18,7 @@ rax_image: c3153cde-2d23-4186-b7da-159adbe2858b
 rax_diskconfig: manual
 
 host_prefix: "{{lookup('env', 'BUILD_PREFIX')}}-{{lookup('env', 'BUILD_NUMBER')}}"
+host_count: "{{lookup('env', 'BUILD_COUNT')}}"
 
 # Cloud Networks to attach
 rax_net_labels:
@@ -28,7 +26,7 @@ rax_net_labels:
 - private
 - "{{host_prefix}}-svc"
 - "{{host_prefix}}-iso"
-
+ 
 # Cloud networks to ensure
 rax_net_info:
 - label: "{{host_prefix}}-svc"

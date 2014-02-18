@@ -1,3 +1,2 @@
 ---
-# Replace with python 2.x more explicitly
-ansible_python_interpreter: /usr/local/bin/python
+ansible_python_interpreter: /usr/bin/env python
