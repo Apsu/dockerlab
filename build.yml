@@ -1,4 +1,6 @@
 ---
 - include: ensure.yml
 - include: configure.yml
-- include: chef.yml
+- include: provision.yml
+- include: reboot.yml
+

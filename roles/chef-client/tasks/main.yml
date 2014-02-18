@@ -1,4 +1,0 @@
----
-- name: Run chef client
-  tags: chef-client
-  command: chef-client

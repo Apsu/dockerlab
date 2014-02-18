@@ -1,0 +1,26 @@
+---
+- name: Add docker repository key
+  tags: packages
+  apt_key: url=https://get.docker.io/gpg state=present
+
+- name: Add docker repository
+  tags: packages
+  apt_repository: repo="deb http://get.docker.io/ubuntu docker main" state=present
+
+- name: Update package list
+  tags: packages
+  apt: update_cache=yes
+  
+- name: Install docker
+  tags: packages
+  apt: pkg=lxc-docker state=present
+
+- name: Clone dockerfiles
+  tags: docker
+  git: repo=https://github.com/Apsu/dockerlab-files dest={{lookup('env', 'HOME')}}/dockerfiles update=yes
+
+- name: Build docker images
+  tags: docker
+  docker_image: path={{item}} state=present
+  with_fileglob:
+  - "{{lookup('env', 'HOME')}}/dockerfiles/*"

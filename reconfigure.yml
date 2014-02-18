@@ -1,4 +1,0 @@
----
-- include: ensure.yml
-- include: clean.yml
-- include: chef.yml
