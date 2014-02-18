@@ -21,7 +21,7 @@
   - lxc-docker
   - git
   - python-setuptools
-  - lldpad
+  - lldpd
   when: ansible_os_family == "Debian"
 
 - name: Install packages
@@ -31,7 +31,7 @@
   - docker-io
   - git
   - python-setuptools
-  - lldpad
+  - lldpd
   when: ansible_os_family == "RedHat"
 
 - name: Install docker-py
