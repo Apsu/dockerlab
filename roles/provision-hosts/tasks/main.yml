@@ -20,31 +20,37 @@
   with_items:
   - lxc-docker
   - git
-  - python-setuptools
-  - lldpd
+  - python-pip
+  - python-dev
+  - build-essential
+  - libzmq-dev
   when: ansible_os_family == "Debian"
 
+# TODO: Package list incomplete
 - name: Install packages
   tags: packages
   yum: pkg={{item}} state=present
   with_items:
   - docker-io
   - git
-  - python-setuptools
-  - lldpd
+  - python-pip
   when: ansible_os_family == "RedHat"
-
-- name: Install docker-py
-  tags: packages
-  command: easy_install docker-py
 
 - name: Pull images
   tags: docker
-  command: docker pull {{item}}
+  command: docker pull registry.docker:5000/{{item}}
   with_items:
-    - registry.docker:5000/admin
-    - registry.docker:5000/mysql
-    - registry.docker:5000/keystone
+    - admin
+    - mysql
+    - keystone
+
+- name: Clone scrambler
+  tags: packages
+  git: repo=http://github.com/Apsu/scrambler dest={{ansible_env.HOME}}/scrambler update=yes
+
+- name: Install scrambler
+  tags: packages
+  command: chdir={{ansible_env.HOME}}/scrambler ./setup.py install
 
 #- name: Clone dockerfiles
 #  tags: docker
