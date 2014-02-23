@@ -74,6 +74,14 @@ Jenkins
 
 The two scripts designed to be run from Jenkins are `deploy.sh` and `destroy.sh`. They're fairly simple wrappers around the `deploy.yml` and `destroy.yml` playbooks, respectively. They will pushd if the repo is cloned in /opt/virtlab, and assume ansible/pyrax is in a virtualenv named `.venv` which they activate. You're welcome.
 
+As mentioned above, there are several environment variables required whether running Dockerlab from Jenkins or not. The variables are:
+
+* BUILD_PREFIX -- A string describing the prefix for each cluster host name
+* BUILD_NUMBER -- A number describing the build to help provide unique builds with the same prefix
+* BUILD_COUNT  -- A number specifying the number of nodes to build for this cluster
+
+The pattern for host names is constructed from `$BUILD_PREFIX-$BUILD_NUMBER-node$index`, where `$index` is a number from 1 to `$BUILD_COUNT`.
+
 Networking
 ---
 
